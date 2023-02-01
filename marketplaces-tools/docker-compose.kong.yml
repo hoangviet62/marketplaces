@@ -16,7 +16,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./db/postgres:/var/lib/postgresql/data
+      - ./db/postgresql:/var/lib/postgresql/data
     networks:
       - kong-net
   # kong-migrations:
