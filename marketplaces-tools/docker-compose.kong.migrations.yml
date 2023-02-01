@@ -1,0 +1,51 @@
+version: '3.8'
+
+networks:
+  kong-net:
+    name: kong-net
+    driver: bridge
+
+services:
+  kong-database:
+    image: postgres:11.18-alpine
+    container_name: kong-database
+    environment:
+      POSTGRES_USER: kong
+      POSTGRES_DB: kong
+      POSTGRES_PASSWORD: kong
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/kong-postgresql:/var/lib/postgresql/data
+    networks:
+      - kong-net
+
+  kong-migrations:
+    image: kong:3.1.1-alpine
+    container_name: kong-migrations
+    restart: on-failure
+    depends_on:
+      - kong-database
+    links:
+      - kong-database:kong-database
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-database
+      KONG_PG_USER: kong
+      KONG_PG_PASSWORD: kong
+      KONG_CASSANDRA_CONTACT_POINTS: kong-database
+    entrypoint: sh -c "sleep 100 && kong migrations bootstrap --vv"
+    networks:
+      - kong-net
+
+  konga-prepare:
+    image: pantsel/konga
+    container_name: konga-prepare
+    command: "-c prepare -a postgres -u postgresql://kong:kong@kong-database:5432/konga"
+    networks:
+      - kong-net
+    restart: on-failure
+    links:
+      - kong-database:kong-database
+    depends_on:
+      - kong-database
