@@ -1,2 +1,3 @@
 db/*
 docker-compose.kong.migrations.cloud.yml
+docker-compose.kong.cloud.yml
