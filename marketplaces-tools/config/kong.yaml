@@ -1,0 +1,11 @@
+_format_version: "1.1"
+
+plugins:
+- name: jwt
+  enabled: yes
+  service: default-service
+  config: 
+    header_names: ["Authorization"]    
+    uri_param_names: 
+    key_claim_name: iss
+    run_on_preflight: true
