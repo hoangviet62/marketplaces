@@ -49,11 +49,16 @@ services:
   go-api:
     build:
       context: .
-      dockerfile: marketplace-go-api/Dockerfile
+      dockerfile: marketplaces-go-api/Dockerfile
     image: go-api
     hostname: go-api
     container_name: go-api
     restart: on-failure
+    depends_on:
+      kong:
+        condition: service_healthy
+    links:
+      - kong
     logging:
       driver: json-file
       options:
