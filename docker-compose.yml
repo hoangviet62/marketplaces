@@ -49,7 +49,7 @@ services:
   go-api:
     build:
       context: .
-      dockerfile: marketplaceDockerfile
+      dockerfile: marketplace-go-api/Dockerfile
     image: go-api
     hostname: go-api
     container_name: go-api
