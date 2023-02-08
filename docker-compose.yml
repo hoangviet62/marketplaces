@@ -26,6 +26,8 @@ services:
       - "8443"
       - "8001"
       - "8444"
+    ports:
+      - "8000:8000"
 
   konga:
     image: pantsel/konga
