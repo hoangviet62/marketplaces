@@ -21,11 +21,11 @@ services:
       - ./marketplaces-tools/config:/opt/kong
     env_file:
       - ./docker-env/production.env
-    ports:
-      - "1001:8000"
-      - "1002:8443"
-      - "1003:8001"
-      - "1004:8444"
+    expose:
+      - "8000"
+      - "8443"
+      - "8001"
+      - "8444"
 
   konga:
     image: pantsel/konga
@@ -44,7 +44,7 @@ services:
     env_file:
       - ./docker-env/production.env
     ports:
-      - "1337:1337"
+      - "30000:1337"
 
   go-api:
     build:
@@ -61,4 +61,4 @@ services:
     networks:
       - kong-net
     expose:
-      - "30000"
+      - "30001"
