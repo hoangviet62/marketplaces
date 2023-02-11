@@ -69,3 +69,5 @@ services:
       - kong-net
     expose:
       - "30001"
+    volumes:
+      - ./public-assets:./public
