@@ -1,3 +1,7 @@
 [submodule "marketplaces-go-api"]
 	path = marketplaces-go-api
 	url = https://github.com/hoangviet62/marketplaces-go-api
+
+[submodule "marketplaces-frontend"]
+	path = marketplaces-frontend
+	url = https://github.com/hoangviet62/marketplaces-frontend
